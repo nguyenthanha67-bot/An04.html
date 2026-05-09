@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Portfolio — Nhiếp ảnh & Video</title>
+<style>
+@font-face {
+  font-family: 'Pixel';
+  src: url('Pixel.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Asimovian';
+  src: url('Asimovian-Regular.ttf') format('truetype');
+}
+/* ===================================================
+   ĐỂ CHỈNH SỬA GIAO DIỆN: sửa các biến CSS ở đây
+   =================================================== */
+:root {
+  --bg:        #000000;      /* màu nền chính */
+  --paper:     #f5f0e8;      /* màu chữ chính */
+  --accent:    #6eaac8;      /* màu vàng nhấn */
+  --muted:     rgba(245,240,232,0.45); /* chữ mờ */
+  --border:    rgba(245,240,232,0.1);  /* đường kẻ */
+  --font-serif: 'Asimovian', Georgia, serif;
+  --font-sans:  'Pixel', 'Segoe UI', sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: url('1.jpg') center/cover no-repeat;
+  color: var(--paper);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); }
+
+/* ─────────────────────────────────────────
+   NAV
+───────────────────────────────────────── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.3rem 2.5rem;
+  background: rgba(10,10,10,0.5);
+  backdrop-filter: blur(10px);
+  border-bottom: 0.5px solid rgba(255,255,255,0.1);
+}
+.nav-logo {
+  font-family: var(--font-serif);
+  font-size: 1.3rem; font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-size: 0.72rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--muted);
+  text-decoration: none; transition: color .25s;
+}
+.nav-links a:hover { color: var(--accent); }
+
+/* ─────────────────────────────────────────
+   HERO
+───────────────────────────────────────── */
+#hero {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; padding: 6rem 2.5rem 4rem;
+  align-items: center; min-height: 90vh;
+}
+.hero-label {
+  font-size: 0.7rem; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 1.5rem;
+}
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  line-height: 1.06; font-weight: 700;
+  margin-bottom: 1.8rem;
+}
+.hero-title em { font-style: italic; color: var(--accent); }
+.hero-bio {
+  font-size: 0.92rem; color: var(--muted);
+  line-height: 1.9; max-width: 400px;
+  font-weight: 300; margin-bottom: 2.5rem;
+}
+.hero-cta { display: flex; gap: 1.2rem; flex-wrap: wrap; align-items: center; }
+.btn {
+  display: inline-block; padding: .8rem 2.2rem;
+  font-size: 0.72rem; letter-spacing: 0.18em;
+  text-transform: uppercase; text-decoration: none;
+  cursor: pointer; transition: opacity .2s; border: none;
+  font-family: var(--font-sans); font-weight: 600;
+}
+.btn-primary {border-radius: 8px;
+  background: rgba(52, 152, 219, 0.25);
+  color: var(--paper);
+  border: 1px solid rgba(52, 152, 219, 0.6);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  padding: .8rem 2.2rem;
+}.btn-primary:hover { opacity: .82; }
+.btn-ghost {border-radius: 8px;
+  background: transparent;
+  border: 0.5px solid rgba(245,240,232,0.3);
+  color: var(--muted);
+}
+.btn-ghost:hover { color: var(--paper); border-color: var(--paper); }
+
+/* Hero visual */
+.hero-visual { display: flex; flex-direction: column; gap: .75rem; }
+.hero-img-main {
+  width: 100%; aspect-ratio: 4/3;
+  background: rgba(255,255,255,0.06);
+  overflow: hidden; position: relative;
+  border-radius: 12px;
+}
+/* ==================================================
+   ĐỂ THÊM ẢNH ĐẠI DIỆN:
+   Thay dòng dưới bằng thẻ <img> trong phần HTML
+   ================================================== */
+.hero-img-main img,
+.thumb img {
+  width:100%; height:100%; object-fit: cover; display:block;
+}
+.hero-img-placeholder {
+  width:100%; height:100%; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  color: var(--muted); font-size:.8rem; letter-spacing:.1em;
+  gap:.5rem;
+}
+.hero-img-placeholder .icon { font-size: 2.8rem; opacity:.4; }
+.hero-thumbs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .75rem;
+  width: 100%;
+}
+.thumb {
+  aspect-ratio: 16/9; background: rgba(255,255,255,0.05);
+  display:flex; align-items:center; justify-content:center;
+  color: var(--muted); font-size:.7rem; letter-spacing:.12em;
+  overflow:hidden; position:relative;
+}
+
+/* ─────────────────────────────────────────
+   STATS BAR
+───────────────────────────────────────── */
+.stats {
+  display: flex;
+  border-top: 0.5px solid var(--border);
+  border-bottom: 0.5px solid var(--border);
+}
+.stat {
+  flex:1; padding: 1.8rem 1rem; text-align:center;
+  border-right: 0.5px solid var(--border);
+}
+.stat:last-child { border-right: none; }
+.stat-num {
+  font-family: var(--font-serif); font-size: 2.2rem;
+  color: var(--accent); font-weight: 700; line-height:1;
+}
+.stat-label {
+  font-size: .65rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--muted);
+  margin-top:.35rem;
+}
+
+/* ─────────────────────────────────────────
+   SECTION chung
+───────────────────────────────────────── */
+section { padding: 5rem 2.5rem; }
+.section-header {
+  display: flex; justify-content: space-between;
+  align-items: baseline; padding-bottom: 1rem;
+  border-bottom: 0.5px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 1.9rem; font-weight:700;
+}
+.section-sub {
+  font-size: .7rem; letter-spacing:.18em;
+  text-transform:uppercase; color: var(--muted);
+}
+
+/* ─────────────────────────────────────────
+   WORKS
+───────────────────────────────────────── */
+.filter-row { display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:2rem; }
+.filter-btn {
+  background:transparent; cursor:pointer;
+  border: 0.5px solid rgba(245,240,232,0.2);
+  color: var(--muted);
+  padding:.4rem 1.1rem; font-size:.7rem;
+  letter-spacing:.14em; text-transform:uppercase;
+  transition: all .2s; font-family:var(--font-sans);
+}
+.filter-btn.active, .filter-btn:hover {
+  background: var(--accent); border-color: var(--accent);
+  color: #0a0a0a;
+}
+
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .75rem;
+  min-height: 600px;
+}
+.work-card {
+  position: relative; overflow: hidden;
+  min-height: 200px; cursor: pointer;
+  transition: transform .35s ease;
+  display: flex; align-items:center; justify-content:center;
+}
+.work-card:hover { transform: scale(1.015); }
+.work-card.large { grid-column: span 2; min-height: 280px; }
+
+/* ==================================================
+   ĐỂ THÊM ẢNH VÀO WORK CARD:
+   Thêm <img> bên trong .work-card trong phần HTML
+   ================================================== */
+.work-card img {
+  position:absolute; inset:0;
+  width:100%; height:100%; object-fit:cover;
+}
+.work-placeholder {
+  font-size:2.5rem; opacity:.2; z-index:1;
+  transition: opacity .35s;
+}
+.work-card:hover .work-placeholder { opacity:.08; }
+.work-overlay {
+  position:absolute; inset:0; z-index:2;
+  background: linear-gradient(to top, rgba(0,0,0,.85) 0%, transparent 60%);
+  padding:1.5rem; display:flex; flex-direction:column;
+  justify-content:flex-end;
+  opacity:0; transition: opacity .35s;
+}
+.work-card:hover .work-overlay { opacity:1; }
+.work-meta-static {
+  position:absolute; bottom:.8rem; left:1rem; z-index:2;
+  font-size:.67rem; letter-spacing:.12em;
+  text-transform:uppercase; color: rgba(245,240,232,.45);
+  transition: opacity .35s;
+}
+.work-card:hover .work-meta-static { opacity:0; }
+.work-category {
+  font-size:.65rem; letter-spacing:.18em;
+  text-transform:uppercase; margin-bottom:.35rem;
+}
+.work-title-card {
+  font-family:var(--font-serif); font-size:1.25rem;
+  font-weight:700; color:var(--paper); margin-bottom:.4rem;
+}
+.work-year { font-size:.67rem; color:rgba(245,240,232,.4); }
+
+/* ─────────────────────────────────────────
+   SERVICES
+───────────────────────────────────────── */
+#services { background: transparent; }
+
+/* ─────────────────────────────────────────
+   MODAL BÁO GIÁ
+───────────────────────────────────────── */
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); }
+.modal.show { display: flex; align-items: center; justify-content: center; }
+.modal-content {
+  /* 1. Làm nền trong suốt hơn để thấy rõ nội dung phía sau */
+  background: rgba(255, 255, 255, 0.03); 
+  
+  /* 2. Tăng độ mờ (blur) mạnh hơn và độ bão hòa màu */
+  backdrop-filter: blur(10px) saturate(200%); 
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  
+  /* 3. Viền mảnh nhưng sáng hơn để giả lập cạnh kính phản chiếu */
+  border: 1px solid rgba(255, 255, 255, 0.2); 
+  
+  /* 4. Các thông số bố cục giữ nguyên hoặc tinh chỉnh nhẹ */
+  padding: 3rem;
+  border-radius: 24px; /* Bo góc tròn hơn cho hiện đại */
+  max-width: 900px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  
+  /* 5. Đổ bóng rộng và mờ hơn để tạo cảm giác tấm kính đang bay lơ lửng */
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6); 
+}
+.modal-close {
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5rem;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--muted);
+  border: none;
+  background: transparent;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-close:hover { color: var(--paper); }
+.modal-title {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+  color: var(--paper);
+}
+.pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+.pricing-table th,
+.pricing-table td {
+  padding: 1.2rem;
+  text-align: left;
+  border-bottom: 0.5px solid var(--border);
+  color: var(--paper);
+}
+.pricing-table th {
+  background: rgba(110,170,200,0.1);
+  font-weight: 700;
+  color: var(--accent);
+}
+.pricing-table td { color: var(--muted); }
+.pricing-table tr:hover { background: rgba(110,170,200,0.05); }
+.price-highlight { color: var(--accent); font-weight: 700; font-size: 1.1rem; }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+.service-card {
+  padding: 2rem 1.5rem;
+  border: 0.5px solid var(--border);
+  transition: border-color .25s;
+}
+.service-card:hover { border-color: var(--accent); }
+.service-icon { font-size:1.8rem; margin-bottom:1rem; }
+.service-title {
+  font-size:1rem; font-weight:600;
+  color:var(--paper); margin-bottom:.6rem;
+}
+.service-desc { font-size:.85rem; color:var(--muted); line-height:1.8; font-weight:300; }
+
+/* ─────────────────────────────────────────
+   CONTACT
+───────────────────────────────────────── */
+.contact-inner { max-width:560px; }
+.contact-title {
+  font-family:var(--font-serif);
+  font-size: clamp(2rem,4vw,3rem);
+  font-weight:700; line-height:1.1; margin-bottom:1rem;
+}
+.contact-title em { font-style:italic; color:var(--accent); }
+.contact-desc { color:var(--muted); margin-bottom:2rem; line-height:1.85; max-width:420px; font-size:.9rem; }
+.contact-links { display:flex; gap:1rem; flex-wrap:wrap; }
+.contact-link {
+  display:inline-block; padding:.8rem 2rem;
+  border-radius: 8px;
+  font-size:.72rem; letter-spacing:.16em;
+  text-transform:uppercase; text-decoration:none;
+  font-family:var(--font-sans); font-weight:600;
+  transition: opacity .2s;
+}
+.contact-link.filled { background:var(--accent); color:#0a0a0a; }
+.contact-link.filled:hover { opacity:.82; }
+.contact-link.outline {
+  border: 0.5px solid rgba(245,240,232,.3);
+  color:var(--muted);
+}
+.contact-link.outline:hover { color:var(--paper); border-color:var(--paper); }
+
+/* ─────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────── */
+footer {
+  border-top: 0.5px solid var(--border);
+  padding: 1.5rem 2.5rem;
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:.75rem; color:rgba(245,240,232,.3);
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
+@media (max-width: 768px) {
+  #hero { grid-template-columns:1fr; gap:2.5rem; padding:3.5rem 1.2rem 2.5rem; min-height:auto; }
+  .hero-visual { display:none; }
+  .works-grid { grid-template-columns: 1fr 1fr; }
+  .work-card.large { grid-column: span 2; }
+  nav { padding:1rem 1.2rem; }
+  .nav-links { gap:1.2rem; }
+  section { padding:3rem 1.2rem; }
+  .stats { flex-wrap:wrap; }
+  .stat { min-width:50%; border-bottom: 0.5px solid var(--border); }
+}
+@media (max-width:480px) {
+  .works-grid { grid-template-columns:1fr; }
+  .work-card.large { grid-column:span 1; }
+  .hero-title { font-size: 2.4rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ======================================================
+     NAV
+     Sửa: tên logo, các mục menu
+====================================================== -->
+<nav>
+  <div class="nav-logo">
+  <img src="Artboard 1@4x.png" alt="Logo" style="height: 30px; object-fit: contain;">
+</div>
+  <ul class="nav-links">
+    <li><a href="#hero">Trang chủ</a></li>
+    <li><a href="#works">Tác phẩm</a></li>
+    <li><a href="#services">Dịch vụ</a></li>
+    <li><a href="#contact">Liên hệ</a></li>
+  </ul>
+</nav>
+
+
+<!-- ======================================================
+     HERO
+     Sửa: tagline, tên, bio, nút, ảnh
+====================================================== -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-label">— Portfolio 2026</p>
+
+    <!-- TIÊU ĐỀ LỚN — sửa text bên trong -->
+    <h1 class="hero-title">
+      Khoảnh khắc<br>
+      Ánh sáng<br>
+      Cảm xúc
+    </h1>
+
+    <!-- BIO — sửa đoạn văn này -->
+    <p class="hero-bio">
+  "3 năm hành trình cùng những thước phim, mình tin rằng mỗi khoảnh khắc đều có một giai điệu riêng. Từ những khung hình đời thường đến những dự án phim ngắn, mình tập trung vào việc kiến tạo những sản phẩm chất lượng, nơi kỹ thuật hậu kỳ hòa quyện cùng dòng chảy cảm xúc."
+</p>
+
+<p class="hero-bio" style="margin-top: 1rem; font-size: 0.88rem; color: rgba(245,240,232,0.6); line-height: 1.8;">
+</p>
+
+    <div class="hero-cta">
+      <a href="#works" class="btn btn-primary">Xem tác phẩm</a>
+      <a href="#contact" class="btn btn-ghost">Liên hệ →</a>
+    </div>
+  </div>
+
+  <!-- ẢNH HERO BÊN PHẢI -->
+  <div class="hero-visual">
+    <div class="hero-img-main">
+     <iframe loading="lazy" src="https://player.vimeo.com/video/1190674929?autoplay=1&muted=1&loop=1&controls=0&playsinline=1" width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="border-radius: 12px; object-fit: cover; display: block; border: none;"></iframe>
+    </div>
+    <div class="hero-thumbs">
+      <div class="thumb" style="aspect-ratio: 2880/2160; border-radius: 12px; overflow: hidden;" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()">
+  <video width="100%" height="100%" style="object-fit: cover;">
+    <source src="ok 9.mp4" type="video/quicktime">
+  </video>
+</div>
+      <div class="thumb" style="aspect-ratio: 2880/2160; border-radius: 12px; overflow: hidden;" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()">
+  <video width="100%" height="100%" style="object-fit: cover;">
+    <source src="Stop....mp4" type="video/mp4">
+  </video>
+</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     STATS — sửa số và nhãn
+====================================================== -->
+<div style="position: relative; width: 100vw; height: auto; aspect-ratio: 4150 / 350; overflow: hidden; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);">
+  
+  <iframe src="https://player.vimeo.com/video/1190676492?autoplay=1&muted=1&loop=1&controls=0" width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; z-index: 1; border: none;"></iframe>
+
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); z-index: 2;"></div>
+
+  <div class="stats" style="position: relative; z-index: 3; display: flex; justify-content: space-around; align-items: center; height: 100%; color: white;">
+    <div class="stat" style="border: none !important;"><div class="stat-num">60+</div><div class="stat-label">Dự án hợp tác</div></div>
+    <div class="stat" style="border: none !important;"><div class="stat-num">3</div><div class="stat-label">Năm KN</div></div>
+    <div class="stat" style="border: none !important;"><div class="stat-num">30+</div><div class="stat-label">Đánh giá tích cực</div></div>
+    <div class="stat" style="border: none !important;"><div class="stat-num">10+</div><div class="stat-label">Dự án cá nhân</div></div>
+  </div>
+
+</div>
+
+
+<!-- ======================================================
+     TÁC PHẨM
+     Sửa: tên dự án, năm, danh mục, màu nền, ảnh
+====================================================== -->
+<section id="works">
+  <div class="section-header">
+    <h2 class="section-title">Sản phẩm</h2>
+    <span class="section-sub">Selected works</span>
+  </div>
+
+  <!-- BỘ LỌC — sửa tên danh mục nếu muốn -->
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="filterWorks(this,'du-an')">Dự án</button>
+    <button class="filter-btn" onclick="filterWorks(this,'ca-nhan')">Cá nhân</button>
+  </div>
+
+  <div class="works-grid" id="works-grid">
+
+    <!-- DỰ ÁN — 4 CARD -->
+    <!-- CARD 1 -->
+    <div class="work-card" data-cat="du-an" style="background:#2a1f0e;" onclick="const v = this.querySelector('video'); const btn = this.querySelector('.play-btn-wrapper'); if(v.paused) { v.play(); btn.style.opacity = '0'; } else { v.pause(); btn.style.opacity = '1'; }">
+      <video width="100%" height="100%" style="object-fit: cover;" muted>
+        <source src="Dự án 1.mp4" type="video/mp4">
+      </video>
+      <div class="play-btn-wrapper" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 10; pointer-events: none; opacity: 1; transition: opacity 0.2s;">
+        <svg width="50" height="50" viewBox="0 0 30 30" fill="white" style="margin-left: 4px; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));">
+          <polygon points="10,5 10,25 25,15" />
+        </svg>
+      </div>
+      <div class="work-overlay">
+        <span class="work-category" style="color:#c8813a;">Dự án</span>
+        <h3 class="work-title-card">Dự án 1</h3>
+        <span class="work-year">2024</span>
+      </div>
+      <div class="work-meta-static">Dự án 1</div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="work-card" data-cat="du-an" style="background:#0e1a2a;" onclick="const v = this.querySelector('video'); const btn = this.querySelector('.play-btn-wrapper'); if(v.paused) { v.play(); btn.style.opacity = '0'; } else { v.pause(); btn.style.opacity = '1'; }">
+      <video width="100%" height="100%" style="object-fit: cover;" muted>
+        <source src="Dự án 2.mp4" type="video/mp4">
+      </video>
+      <div class="play-btn-wrapper" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 10; pointer-events: none; opacity: 1; transition: opacity 0.2s;">
+        <svg width="50" height="50" viewBox="0 0 30 30" fill="white" style="margin-left: 4px; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));">
+          <polygon points="10,5 10,25 25,15" />
+        </svg>
+      </div>
+      <div class="work-overlay">
+        <span class="work-category" style="color:#4a90b8;">Dự án</span>
+        <h3 class="work-title-card">Dự án 2</h3>
+        <span class="work-year">2024</span>
+      </div>
+      <div class="work-meta-static">Dự án 2</div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="work-card" data-cat="du-an" style="background:#1a0e14;" onclick="const v = this.querySelector('video'); const btn = this.querySelector('.play-btn-wrapper'); if(v.paused) { v.play(); btn.style.opacity = '0'; } else { v.pause(); btn.style.opacity = '1'; }">
+      <video width="100%" height="100%" style="object-fit: cover;" muted>
+        <source src="Dự án 3.mp4" type="video/mp4">
+      </video>
+      <div class="play-btn-wrapper" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 10; pointer-events: none; opacity: 1; transition: opacity 0.2s;">
+        <svg width="50" height="50" viewBox="0 0 30 30" fill="white" style="margin-left: 4px; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));">
+          <polygon points="10,5 10,25 25,15" />
+        </svg>
+      </div>
+      <div class="work-overlay">
+        <span class="work-category" style="color:#b84a6e;">Dự án</span>
+        <h3 class="work-title-card">Dự án 3</h3>
+        <span class="work-year">2024</span>
+      </div>
+      <div class="work-meta-static">Dự án 3</div>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="work-card" data-cat="du-an" style="background:#0a1a18;" onclick="const v = this.querySelector('video'); const btn = this.querySelector('.play-btn-wrapper'); if(v.paused) { v.play(); btn.style.opacity = '0'; } else { v.pause(); btn.style.opacity = '1'; }">
+      <video width="100%" height="100%" style="object-fit: cover;" muted>
+        <source src="Dự án 4.mp4" type="video/mp4">
+      </video>
+      <div class="play-btn-wrapper" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 10; pointer-events: none; opacity: 1; transition: opacity 0.2s;">
+        <svg width="50" height="50" viewBox="0 0 30 30" fill="white" style="margin-left: 4px; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));">
+          <polygon points="10,5 10,25 25,15" />
+        </svg>
+      </div>
+      <div class="work-overlay">
+        <span class="work-category" style="color:#3aac8c;">Dự án</span>
+        <h3 class="work-title-card">Dự án 4</h3>
+        <span class="work-year">2024</span>
+      </div>
+      <div class="work-meta-static">Dự án 4</div>
+    </div>
+
+<!-- CÁ NHÂN — 4 CARD -->
+    <!-- CARD 1 -->
+    <div class="work-card" data-cat="ca-nhan" style="background:#1a1a0e;" onclick="const v = this.querySelector('video'); const btn = this.querySelector('.play-btn-wrapper'); if(v.paused) { v.play(); btn.style.opacity = '0'; } else { v.pause(); btn.style.opacity = '1'; }">
+      <video width="100%" height="100%" style="object-fit: cover;" muted>
+        <source src="Cá nhân 1.mp4" type="video/mp4">
+      </video>
+      <div class="play-btn-wrapper" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 10; pointer-events: none; opacity: 1; transition: opacity 0.2s;">
+        <svg width="50" height="50" viewBox="0 0 30 30" fill="white" style="margin-left: 4px; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));">
+          <polygon points="10,5 10,25 25,15" />
+        </svg>
+      </div>
+      <div class="work-overlay">
+        <span class="work-category" style="color:#a0b83a;">Cá nhân</span>
+        <h3 class="work-title-card">Cá nhân 1</h3>
+        <span class="work-year">2024</span>
+      </div>
+      <div class="work-meta-static">Cá nhân 1</div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="work-card" data-cat="ca-nhan" style="background:#1a0e0e;" onclick="const v = this.querySelector('video'); const btn = this.querySelector('.play-btn-wrapper'); if(v.paused) { v.play(); btn.style.opacity = '0'; } else { v.pause(); btn.style.opacity = '1'; }">
+      <video width="100%" height="100%" style="object-fit: cover;" muted>
+        <source src="Cá nhân 2.mp4" type="video/mp4">
+      </video>
+      <div class="play-btn-wrapper" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 10; pointer-events: none; opacity: 1; transition: opacity 0.2s;">
+        <svg width="50" height="50" viewBox="0 0 30 30" fill="white" style="margin-left: 4px; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));">
+          <polygon points="10,5 10,25 25,15" />
+        </svg>
+      </div>
+      <div class="work-overlay">
+        <span class="work-category" style="color:#b85a3a;">Cá nhân</span>
+        <h3 class="work-title-card">Cá nhân 2</h3>
+        <span class="work-year">2024</span>
+      </div>
+      <div class="work-meta-static">Cá nhân 2</div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="work-card" data-cat="ca-nhan" style="background:#0e1a1a;" onclick="const v = this.querySelector('video'); const btn = this.querySelector('.play-btn-wrapper'); if(v.paused) { v.play(); btn.style.opacity = '0'; } else { v.pause(); btn.style.opacity = '1'; }">
+      <video width="100%" height="100%" style="object-fit: cover;" muted>
+        <source src="Cá nhân 3.mp4" type="video/mp4">
+      </video>
+      <div class="play-btn-wrapper" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 10; pointer-events: none; opacity: 1; transition: opacity 0.2s;">
+        <svg width="50" height="50" viewBox="0 0 30 30" fill="white" style="margin-left: 4px; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));">
+          <polygon points="10,5 10,25 25,15" />
+        </svg>
+      </div>
+      <div class="work-overlay">
+        <span class="work-category" style="color:#3a8c9c;">Cá nhân</span>
+        <h3 class="work-title-card">Cá nhân 3</h3>
+        <span class="work-year">2024</span>
+      </div>
+      <div class="work-meta-static">Cá nhân 3</div>
+    </div>
+
+    <!-- CARD 4 -->
+    <!-- CARD 4 -->
+<div class="work-card" data-cat="ca-nhan" style="background:#1a1a0e; aspect-ratio: 16/9;" onclick="const v = this.querySelector('video'); const btn = this.querySelector('.play-btn-wrapper'); if(v.paused) { v.play(); btn.style.opacity = '0'; } else { v.pause(); btn.style.opacity = '1'; }">
+  <video width="100%" height="100%" style="object-fit: cover;" muted>
+    <source src="Cá nhân 4.mp4" type="video/mp4">
+  </video>
+  <div class="play-btn-wrapper" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 10; pointer-events: none; opacity: 1; transition: opacity 0.2s;">
+    <svg width="50" height="50" viewBox="0 0 30 30" fill="white" style="margin-left: 4px; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));">
+      <polygon points="10,5 10,25 25,15" />
+    </svg>
+  </div>
+  <div class="work-overlay">
+    <span class="work-category" style="color:#b83a8c;">Cá nhân</span>
+    <h3 class="work-title-card">Cá nhân 4</h3>
+    <span class="work-year">2024</span>
+  </div>
+  <div class="work-meta-static">Cá nhân 4</div>
+</div>
+
+  </div>
+</section>
+
+<!-- ======================================================
+     DỊCH VỤ — sửa icon, tên, mô tả
+====================================================== -->
+<section id="services">
+  <div class="section-header">
+    <h2 class="section-title">Dịch vụ</h2>
+    <span class="section-sub">What I offer</span>
+  </div>
+  <div class="services-grid">
+
+    <div class="service-card" style="cursor: pointer;" onclick="openPricing('photo')">
+      <div class="service-icon">📷</div>
+      <h3 class="service-title">Nhiếp ảnh thương mại</h3>
+      <p class="service-desc">Sản phẩm, branding, lookbook cho doanh nghiệp và thương hiệu cá nhân.</p>
+    </div>
+
+    <div class="service-card" style="cursor: pointer;" onclick="openPricing('video')">
+      <div class="service-icon">🎬</div>
+      <h3 class="service-title">Quay phim & dựng phim</h3>
+      <p class="service-desc">Phim ngắn, TVC, reel sự kiện với chất lượng điện ảnh.</p>
+    </div>
+
+    <div class="service-card" style="cursor: pointer;" onclick="openPricing('wedding')">
+      <div class="service-icon">💍</div>
+      <h3 class="service-title">Ảnh & phim cưới</h3>
+      <p class="service-desc">Ghi lại từng khoảnh khắc quý giá nhất của ngày trọng đại.</p>
+    </div>
+
+    <div class="service-card" style="cursor: pointer;" onclick="openPricing('landscape')">
+      <div class="service-icon">🌄</div>
+      <h3 class="service-title">Phong cảnh & du lịch</h3>
+      <p class="service-desc">Khám phá và tái hiện vẻ đẹp thiên nhiên Việt Nam qua ống kính.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ======================================================
+     LIÊN HỆ — sửa email, mạng xã hội
+====================================================== -->
+<section id="contact">
+  <div class="contact-inner">
+    <p class="hero-label">— Bắt đầu dự án</p>
+    <h2 class="contact-title">
+  Hãy cùng tạo ra<br>
+  <em style="display: block; margin-top: 0.5rem;">điều gì đó đẹp.</em>
+</h2>
+    <p class="contact-desc">
+      Mình luôn sẵn sàng cho các dự án mới. Hãy kể cho mình nghe ý tưởng của bạn!
+    </p>
+    <div class="contact-links">
+      <!-- Sửa href="mailto:..." thành email thật của bạn -->
+<a href="mailto:nguyenthanha67@gmail.com" class="contact-link filled">nguyenthanha67@gmail.com</a>      <!-- Sửa href thành link Instagram / Facebook của bạn -->
+<a href="https://zalo.me/0396454198" target="_blank" class="contact-link outline">0396454198</a>
+  </div>
+</section>
+
+<!-- ======================================================
+     JAVASCRIPT — bộ lọc tác phẩm (không cần sửa)
+====================================================== -->
+<script>
+function filterWorks(btn, cat) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.work-card').forEach(card => {
+    const show = cat === 'all' || card.dataset.cat === cat;
+    card.style.display = show ? 'flex' : 'none';
+  });
+}
+
+window.addEventListener('load', function() {
+  const duAnBtn = document.querySelector('button[onclick*="du-an"]');
+  if (duAnBtn) filterWorks(duAnBtn, 'du-an');
+});
+
+// Dữ liệu báo giá
+const pricingData = {
+  photo: {
+    title: 'Báo giá - Nhiếp ảnh thương mại',
+    items: [
+      { name: 'Chụp sản phẩm (1-2 giờ)', desc: 'Bao gồm 50-100 ảnh', price: '2.000.000đ' },
+      { name: 'Lookbook thương hiệu (1 ngày)', desc: 'Bao gồm 200-300 ảnh', price: '5.000.000đ' },
+      { name: 'Branding package', desc: 'Logo, ảnh sản phẩm, ảnh lifestyle', price: '8.000.000đ' },
+      { name: 'Ảnh sự kiện (bán ngày)', desc: '4 giờ, bao gồm 300-400 ảnh', price: '3.000.000đ' }
+    ]
+  },
+  video: {
+    title: 'Báo giá - Quay phim & Dựng phim',
+    items: [
+      { name: 'Video ngắn (15-30 giây)', desc: 'Quay + dựng + hiệu ứng', price: '3.000.000đ' },
+      { name: 'TVC / Quảng cáo (30-60 giây)', desc: 'Quay chuyên nghiệp + post production', price: '8.000.000đ' },
+      { name: 'Video sự kiện (1 ngày)', desc: 'Quay + highlight video', price: '5.000.000đ' },
+      { name: 'Phim ngắn (3-5 phút)', desc: 'Quay + dựng hoàn chỉnh', price: '10.000.000đ' }
+    ]
+  },
+  wedding: {
+    title: 'Báo giá - Ảnh & Phim cưới',
+    items: [
+      { name: 'Chụp ảnh cưới (1 ngày)', desc: 'Bao gồm 500-600 ảnh', price: '15.000.000đ' },
+      { name: 'Phim cưới (3-5 phút)', desc: 'Quay + dựng, nhạc, hiệu ứng', price: '8.000.000đ' },
+      { name: 'Gói combo (ảnh + video)', desc: 'Chụp ảnh + quay video 1 ngày', price: '20.000.000đ' },
+      { name: 'Highlight video (1 phút)', desc: 'Tóm tắt những khoảnh khắc đặc biệt', price: '3.000.000đ' }
+    ]
+  },
+  landscape: {
+    title: 'Báo giá - Phong cảnh & Du lịch',
+    items: [
+      { name: 'Chuyên đề (1 ngày)', desc: 'Bao gồm 150-200 ảnh', price: '3.000.000đ' },
+      { name: 'Chuyên đề (3 ngày)', desc: 'Bao gồm 500-700 ảnh', price: '7.000.000đ' },
+      { name: 'Video du lịch (2-3 phút)', desc: 'Quay + dựng, music, cinematic', price: '5.000.000đ' },
+      { name: 'Combo (ảnh + video 2 ngày)', desc: 'Ảnh + video highlight', price: '9.000.000đ' }
+    ]
+  }
+};
+
+function openPricing(category) {
+  const data = pricingData[category];
+  document.getElementById('pricingTitle').textContent = data.title;
+  
+  let tableBody = '';
+  data.items.forEach(item => {
+    tableBody += `
+      <tr>
+        <td><strong>${item.name}</strong></td>
+        <td>${item.desc}</td>
+        <td><span class="price-highlight">${item.price}</span></td>
+      </tr>
+    `;
+  });
+  
+  document.getElementById('pricingBody').innerHTML = tableBody;
+  document.getElementById('pricingModal').classList.add('show');
+}
+
+function closePricing() {
+  document.getElementById('pricingModal').classList.remove('show');
+}
+
+window.onclick = function(event) {
+  const modal = document.getElementById('pricingModal');
+  if (event.target === modal) {
+    modal.classList.remove('show');
+  }
+}
+</script>
+<!-- MODAL BÁO GIÁ -->
+<div id="pricingModal" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closePricing()">✕</button>
+    <h2 class="modal-title" id="pricingTitle">Báo giá dịch vụ</h2>
+    <table class="pricing-table">
+      <thead>
+        <tr>
+          <th>Dịch vụ</th>
+          <th>Chi tiết</th>
+          <th>Giá</th>
+        </tr>
+      </thead>
+      <tbody id="pricingBody">
+      </tbody>
+    </table>
+    <p style="color: var(--muted); font-size: 0.9rem;">
+      <strong>Lưu ý:</strong> Các giá trên chỉ mang tính tham khảo. Mỗi dự án có thể có giá khác tuỳ theo yêu cầu cụ thể. Vui lòng liên hệ để được tư vấn chi tiết.
+    </p>
+  </div>
+</div>
+
+</body>
+</html>
