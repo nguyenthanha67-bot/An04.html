@@ -473,15 +473,25 @@ footer {
      <iframe loading="lazy" src="https://player.vimeo.com/video/1190674929?autoplay=1&muted=1&loop=1&controls=0&playsinline=1" width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="border-radius: 12px; object-fit: cover; display: block; border: none;"></iframe>
     </div>
     <div class="hero-thumbs">
-      <div class="thumb" style="aspect-ratio: 2880/2160; border-radius: 12px; overflow: hidden;" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()">
-  <video width="100%" height="100%" style="object-fit: cover;">
+      <div class="thumb" style="aspect-ratio: 2880/2160; border-radius: 12px; overflow: hidden; position: relative; cursor: pointer;" onclick="const v = this.querySelector('video'); const btn = this.querySelector('.play-btn'); if(v.paused) { v.play(); btn.style.opacity = '0'; } else { v.pause(); btn.style.opacity = '1'; }">
+  <video width="100%" height="100%" style="object-fit: cover;" onplay="this.parentElement.querySelector('.play-btn').style.opacity = '0';" onpause="this.parentElement.querySelector('.play-btn').style.opacity = '1';">
     <source src="ok 9.mp4" type="video/quicktime">
   </video>
+  <div class="play-btn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; opacity: 1; transition: opacity 0.2s; pointer-events: none;">
+    <svg width="60" height="60" viewBox="0 0 30 30" fill="white" style="filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));">
+      <polygon points="10,5 10,25 25,15" />
+    </svg>
+  </div>
 </div>
-      <div class="thumb" style="aspect-ratio: 2880/2160; border-radius: 12px; overflow: hidden;" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()">
-  <video width="100%" height="100%" style="object-fit: cover;">
+      <div class="thumb" style="aspect-ratio: 2880/2160; border-radius: 12px; overflow: hidden; position: relative; cursor: pointer;" onclick="const v = this.querySelector('video'); const btn = this.querySelector('.play-btn'); if(v.paused) { v.play(); btn.style.opacity = '0'; } else { v.pause(); btn.style.opacity = '1'; }">
+  <video width="100%" height="100%" style="object-fit: cover;" onplay="this.parentElement.querySelector('.play-btn').style.opacity = '0';" onpause="this.parentElement.querySelector('.play-btn').style.opacity = '1';">
     <source src="Stop....mp4" type="video/mp4">
   </video>
+  <div class="play-btn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; opacity: 1; transition: opacity 0.2s; pointer-events: none;">
+    <svg width="60" height="60" viewBox="0 0 30 30" fill="white" style="filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));">
+      <polygon points="10,5 10,25 25,15" />
+    </svg>
+  </div>
 </div>
     </div>
   </div>
